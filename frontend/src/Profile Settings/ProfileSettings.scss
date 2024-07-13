@@ -1,0 +1,42 @@
+@import "./../css/util.scss";
+
+.working-hours {
+  @include shadow;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: min(50%, 500px);
+}
+
+.times {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.day-of-the-week-label {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.working-hours-for-day {
+  display: flex;
+  flex-direction: row;
+}
+
+.duration-preferences {
+  @include shadow;
+  width: min(50%, 500px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+.pref-break-length {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}

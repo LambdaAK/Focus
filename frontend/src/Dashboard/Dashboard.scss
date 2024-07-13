@@ -1,0 +1,10 @@
+@import "./../css/util.scss";
+.left-bar {
+  @include shadow;
+  background-color: $light-slate;
+  height: 100%;
+}
+
+.calendar {
+  @include shadow;
+}

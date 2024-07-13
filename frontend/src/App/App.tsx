@@ -14,6 +14,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import Dashboard from "../Dashboard/Dashboard";
+import ProfileSettings from "../Profile Settings/ProfileSettings";
 
 const Nav: React.FC = () => {
   
@@ -77,50 +79,12 @@ const theme = createTheme({
     h1: {
       fontSize: '2rem', // Custom font size for h1
     },
+    
     // Add more typography settings as needed
   },
   spacing: 8, // Default spacing unit
   // Add more customizations as needed
 });
-
-
-
-const LeftBar: React.FC = () => {
-  
-  return (
-    <div className = "left-bar">
-      
-    </div>
-  )
-}
-
-
-const Dashboard: React.FC = () => {
-  return (
-    <PanelGroup autoSaveId="example" direction="horizontal">
-      <Panel defaultSize = {25}>
-        Left section
-      </Panel>
-
-      <PanelResizeHandle className = "resize-handle">
-        <DragHandleDots2Icon className = "drag-icon"/>
-      </PanelResizeHandle>
-      <Panel defaultSize = {75}>
-        Right section
-      </Panel>
-
-
-    </PanelGroup>
-  )
-}
-
-const ProfileSettings: React.FC = () => {
-  return (
-    <div>
-      Profile Settings
-    </div>
-  )
-}
 
 const AIAssistant: React.FC = () => {
   return (
@@ -134,20 +98,21 @@ const AIAssistant: React.FC = () => {
 
 function App() {
   return (
-    <>
+    <div className = "app">
       <ThemeProvider theme={theme}>
-        
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Router>
         <TopBar/>
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile-settings" element={<ProfileSettings />} />
+            <Route path="/profilesettings" element={<ProfileSettings />} />
             <Route path="/ai-assistant" element={<AIAssistant />} />
           </Routes>
-          
+         
         </Router>
+        </LocalizationProvider>
       </ThemeProvider>
-    </>
+    </div>
   );
 }
 

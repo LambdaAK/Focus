@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 backend/config.json
+
+*.css
+*.css.map
