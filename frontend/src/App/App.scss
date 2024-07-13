@@ -1,0 +1,33 @@
+@import "./../css/util.scss";
+
+.panel {
+  background-color: blue;
+}
+
+.resize-handle {
+  width: 100px;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard {
+
+}
+
+.left-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.resize-handle {
+  width: 10px;
+  margin-right: 20px;
+}
+
+.drag-icon {
+  @include shadow;
+  cursor: move;
+}
