@@ -8,3 +8,9 @@
 .calendar {
   @include shadow;
 }
+
+.weekly-calendar-days {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

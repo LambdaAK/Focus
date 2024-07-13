@@ -40,3 +40,14 @@
   justify-content: space-between;
   margin-top: 10px;
 }
+
+.weekly-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.day-of-the-week {
+  display: flex;
+  flex-direction: row;
+}
