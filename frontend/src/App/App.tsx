@@ -21,6 +21,8 @@ import firebaseConfig from "../firebaseConfig";
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
 import { Database, getDatabase, set } from "firebase/database";
+import Login from "../Login/Login";
+import SignUp from "../SignUp/SignUp";
 
 
 const app: FirebaseApp = initializeApp(firebaseConfig);
@@ -32,7 +34,9 @@ const Nav: React.FC = () => {
   const pageNameToRoute = {
     "Dashboard": "/dashboard",
     "Profile Settings": "/profilesettings",
-    "AI Assistant": "/aiassistant"
+    "AI Assistant": "/aiassistant",
+    "Login": "/login",
+    "Sign up": "/signup"
   }
 
   const routeToPageName = Object.keys(pageNameToRoute).map((key) => pageNameToRoute[key])
@@ -65,7 +69,8 @@ const Nav: React.FC = () => {
     <BottomNavigationAction label="Dashboard" icon={<RestoreIcon />} />
     <BottomNavigationAction label="Profile Settings" icon={<FavoriteIcon />} />
     <BottomNavigationAction label="AI Assistant" icon={<LocationOnIcon />} />
-
+    <BottomNavigationAction label="Login" icon={<LocationOnIcon />} />
+    <BottomNavigationAction label="Sign up" icon={<LocationOnIcon />} />
     
       {
         (() => {
@@ -138,6 +143,8 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profilesettings" element={<ProfileSettings />} />
             <Route path="/ai-assistant" element={<AIAssistant />} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/signup" element={<SignUp/>} />
           </Routes>
          
         </Router>

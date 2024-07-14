@@ -1,0 +1,23 @@
+@import "./../css/util.scss";
+
+.sign-up {
+
+}
+
+.sign-up-modal {
+  @include shadow;
+  width: min(50%, 400px);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.text-input {
+  width: 100%;
+}
+
+.login-button {
+  width: fit-content;
+}
