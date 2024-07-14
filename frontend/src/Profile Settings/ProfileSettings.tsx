@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material"
 import "./ProfileSettings.css"
 import { TimePicker } from "@mui/x-date-pickers"
-import dayjs from "dayjs"
+import dayjs, { Dayjs } from "dayjs"
 import { useState } from "react"
 
 const DayOfTheWeekLabel = (props: {day: string}) => {
@@ -16,12 +16,8 @@ const DayOfTheWeekLabel = (props: {day: string}) => {
   )
 }
 
-const WorkingHoursDay = (props: {day: string}) => {
-
-  const [disabled, setDisabled] = useState<boolean>(true ? ["Sa", "Su"].includes(props.day) : false)
-  const [start, setStart] = useState<dayjs.Dayjs>(dayjs())
-  const [end, setEnd] = useState<dayjs.Dayjs>(dayjs())
-
+const WorkingHoursDay = (props: {day: string, disabled: boolean, setDisabled: Function, start: Dayjs, setStart: Function, end: Dayjs, setEnd: Function}) => {
+  const {disabled, setDisabled, start, setStart, end, setEnd} = props
   return (
     <div className = "working-hours-for-day">
     <div className = "day-of-the-week-label"
@@ -63,6 +59,33 @@ const WorkingHoursDay = (props: {day: string}) => {
 
 const WorkingHours = () => {
 
+  const [mondayDisabled, setMondayDisabled] = useState<boolean>(false)
+  const [startMonday, setStartMonday] = useState<dayjs.Dayjs>(dayjs())
+  const [endMonday, setEndMonday] = useState<dayjs.Dayjs>(dayjs())
+
+  const [tuesdayDisabled, setTuesdayDisabled] = useState<boolean>(false)
+  const [startTuesday, setStartTuesday] = useState<dayjs.Dayjs>(dayjs())
+  const [endTuesday, setEndTuesday] = useState<dayjs.Dayjs>(dayjs())
+
+  const [wednesdayDisabled, setWednesdayDisabled] = useState<boolean>(false)
+  const [startWednesday, setStartWednesday] = useState<dayjs.Dayjs>(dayjs())
+  const [endWednesday, setEndWednesday] = useState<dayjs.Dayjs>(dayjs())
+
+  const [thursdayDisabled, setThursdayDisabled] = useState<boolean>(false)
+  const [startThursday, setStartThursday] = useState<dayjs.Dayjs>(dayjs())
+  const [endThursday, setEndThursday] = useState<dayjs.Dayjs>(dayjs())
+
+  const [fridayDisabled, setFridayDisabled] = useState<boolean>(false)
+  const [startFriday, setStartFriday] = useState<dayjs.Dayjs>(dayjs())
+  const [endFriday, setEndFriday] = useState<dayjs.Dayjs>(dayjs())
+
+  const [saturdayDisabled, setSaturdayDisabled] = useState<boolean>(true)
+  const [startSaturday, setStartSaturday] = useState<dayjs.Dayjs>(null)
+  const [endSaturday, setEndSaturday] = useState<dayjs.Dayjs>(null)
+
+  const [sundayDisabled, setSundayDisabled] = useState<boolean>(true)
+  const [startSunday, setStartSunday] = useState<dayjs.Dayjs>(null)
+  const [endSunday, setEndSunday] = useState<dayjs.Dayjs>(null)
 
 
   return (
@@ -75,16 +98,72 @@ const WorkingHours = () => {
       }}
       >Working Hours</Typography>
 
-
       <div className = "times">
-        <WorkingHoursDay day = "Mo"/>
-        <WorkingHoursDay day = "Tu"/>
-        <WorkingHoursDay day = "We"/>
-        <WorkingHoursDay day = "Th"/>
-        <WorkingHoursDay day = "Fr"/>
-        <WorkingHoursDay day = "Sa"/>
-        <WorkingHoursDay day = "Su"/>
+        <WorkingHoursDay
+          day = {"Mo"}
+          disabled = {mondayDisabled}
+          setDisabled = {setMondayDisabled}
+          start = {startMonday}
+          setStart = {setMondayDisabled}
+          end = {endMonday}
+          setEnd = {setEndMonday}/>
+
+        <WorkingHoursDay
+          day = {"Tu"}
+          disabled = {tuesdayDisabled}
+          setDisabled = {setTuesdayDisabled}
+          start = {startTuesday}
+          setStart = {setStartTuesday}
+          end = {endTuesday}
+          setEnd = {setEndTuesday}/>
+
+        <WorkingHoursDay
+          day = {"We"}
+          disabled = {wednesdayDisabled}
+          setDisabled = {setWednesdayDisabled}
+          start = {startWednesday}
+          setStart = {setStartWednesday}
+          end = {endWednesday}
+          setEnd = {setEndWednesday}/>
+
+        <WorkingHoursDay
+          day = {"Th"}
+          disabled = {thursdayDisabled}
+          setDisabled = {setThursdayDisabled}
+          start = {startThursday}
+          setStart = {setStartThursday}
+          end = {endThursday}
+          setEnd = {setEndThursday}/>
+
+        <WorkingHoursDay
+          day = {"Fr"}
+          disabled = {fridayDisabled}
+          setDisabled = {setFridayDisabled}
+          start = {startFriday}
+          setStart = {setStartFriday}
+          end = {endFriday}
+          setEnd = {setEndFriday}/>
+
+        <WorkingHoursDay
+          day = {"Sa"}
+          disabled = {saturdayDisabled}
+          setDisabled = {setSaturdayDisabled}
+          start = {startSaturday}
+          setStart = {setStartSaturday}
+          end = {endSaturday}
+          setEnd = {setEndSaturday}/>
+
+        <WorkingHoursDay
+          day = {"Su"}
+          disabled = {sundayDisabled}
+          setDisabled = {setSundayDisabled}
+          start = {startSunday}
+          setStart = {setStartSunday}
+          end = {endSunday}
+          setEnd = {setEndSunday}/>
       </div>
+
+
 
     </div>
   )
@@ -92,6 +171,7 @@ const WorkingHours = () => {
 
 
 const DurationPreferences = () => {
+
   return (
     <div className = "duration-preferences">
       <Typography variant = "h5"
