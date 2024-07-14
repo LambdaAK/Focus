@@ -16,6 +16,16 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Dashboard from "../Dashboard/Dashboard";
 import ProfileSettings from "../Profile Settings/ProfileSettings";
+import firebaseConfig from "../firebaseConfig";
+
+import { FirebaseApp, initializeApp } from "firebase/app";
+import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
+import { Database, getDatabase, set } from "firebase/database";
+
+
+const app: FirebaseApp = initializeApp(firebaseConfig);
+const database: Database = getDatabase(app)
+const auth: Auth = getAuth()
 
 const Nav: React.FC = () => {
   
@@ -29,10 +39,17 @@ const Nav: React.FC = () => {
 
   const [value, setValue] = useState(0)
 
+  const [user, setUser] = useState(null)
+
   const location = useLocation()
 
   useEffect(() => {
     setValue(routeToPageName.indexOf(location.pathname))
+
+    onAuthStateChanged(auth, (user) => {
+      setUser(user)
+      console.dir(user, {depth: null})
+    })
   })
   
   return (
@@ -45,9 +62,24 @@ const Nav: React.FC = () => {
       }}
       >
 
-  <BottomNavigationAction label="Dashboard" icon={<RestoreIcon />} />
-  <BottomNavigationAction label="Profile Settings" icon={<FavoriteIcon />} />
-  <BottomNavigationAction label="AI Assistant" icon={<LocationOnIcon />} />
+    <BottomNavigationAction label="Dashboard" icon={<RestoreIcon />} />
+    <BottomNavigationAction label="Profile Settings" icon={<FavoriteIcon />} />
+    <BottomNavigationAction label="AI Assistant" icon={<LocationOnIcon />} />
+
+    
+      {
+        (() => {
+          if (user) return <BottomNavigationAction label="Logout" icon={<LocationOnIcon />} onClick = {() => {
+            window.location.replace("/")
+          }}/>
+          else return <BottomNavigationAction label="Login" icon={<LocationOnIcon />} onClick = {() => {
+            window.location.replace("/login")
+          }
+          }/>
+        })()
+      }
+    
+    
       
     </BottomNavigation>
   )
@@ -95,7 +127,6 @@ const AIAssistant: React.FC = () => {
 
 }
 
-
 function App() {
   return (
     <div className = "app">
@@ -117,3 +148,4 @@ function App() {
 }
 
 export default App;
+
