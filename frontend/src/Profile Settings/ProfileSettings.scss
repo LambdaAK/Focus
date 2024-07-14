@@ -17,8 +17,16 @@
 }
 
 .day-of-the-week-label {
+  @include shadow;
   font-size: 1.5em;
   font-weight: bold;
+
+  transition: ease 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    transform: translateX(-5px);
+  }
 }
 
 .working-hours-for-day {
