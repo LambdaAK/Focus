@@ -7,7 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import Logo from "../Logo/Logo";
 import React, { useEffect, useState } from "react";
-import { BottomNavigation, BottomNavigationAction, createTheme, ThemeProvider } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, Card, createTheme, ThemeProvider, Typography } from "@mui/material";
 
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -19,7 +19,7 @@ import ProfileSettings from "../Profile Settings/ProfileSettings";
 import firebaseConfig from "../firebaseConfig";
 
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
+import { Auth, getAuth, onAuthStateChanged, signOut, User } from "firebase/auth";
 import { Database, getDatabase, set } from "firebase/database";
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
@@ -29,14 +29,36 @@ const app: FirebaseApp = initializeApp(firebaseConfig);
 const database: Database = getDatabase(app)
 const auth: Auth = getAuth()
 
+
+const LoggedIn: React.FC = () => {
+
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    onAuthStateChanged(auth, setUser)
+  }, [])
+  
+  return (
+    <Typography variant = "h6" sx = {{
+      marginLeft: "10px",
+      marginRight: "auto",
+      marginTop: "10px"
+    }}>
+      { user ? `Logged in as ${user.email}` : "Not logged in" }
+    </Typography>
+  )
+}
+
+
 const Nav: React.FC = () => {
   
   const pageNameToRoute = {
     "Dashboard": "/dashboard",
     "Profile Settings": "/profilesettings",
     "AI Assistant": "/aiassistant",
-    "Login": "/login",
-    "Sign up": "/signup"
+    "Sign up": "/signup",
+    "Logout": "/logout",
+    "Login": "/login"
   }
 
   const routeToPageName = Object.keys(pageNameToRoute).map((key) => pageNameToRoute[key])
@@ -52,11 +74,11 @@ const Nav: React.FC = () => {
 
     onAuthStateChanged(auth, (user) => {
       setUser(user)
-      console.dir(user, {depth: null})
     })
   })
   
   return (
+    <>
     <BottomNavigation
       showLabels
       value={value}
@@ -74,6 +96,7 @@ const Nav: React.FC = () => {
       {
         (() => {
           if (user) return <BottomNavigationAction label="Logout" icon={<LocationOnIcon />} onClick = {() => {
+            signOut(auth)
             window.location.replace("/")
           }}/>
           else return <BottomNavigationAction label="Login" icon={<LocationOnIcon />} onClick = {() => {
@@ -84,13 +107,14 @@ const Nav: React.FC = () => {
       }
     
     </BottomNavigation>
+    <LoggedIn/>
+    </>
   )
 }
 
 
 const TopBar: React.FC = () => {
-  
-  
+
   return (
     <div className = "top-bar">
         <Logo/>

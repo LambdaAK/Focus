@@ -39,5 +39,37 @@ def error_response(error: str, code: int):
 def index():
     return success_response("Hello, world!", 200)
 
+@app.route("/users/create", methods=["POST"])
+def create_user():
+    """
+    Creates a new user with the provided email and password.
+
+    Expects a JSON payload in the request body with the following fields:
+    - email: The email address of the user.
+    - password: The password for the user's account.
+
+    :return: A JSON response indicating the result of the user creation process.
+             On success, returns a JSON response with the user data and a 200 status code.
+             On failure, returns a JSON response with an error message and a 400 status code.
+    """
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+    if not email:
+        return error_response("Email is required", 400)
+    if not password:
+        return error_response("Password is required", 400)
+    try:
+        user = auth.create_user(email=email, password=password)  # FireBase Error OR ValueError
+        user_data = {
+            'message': "User created successfully",
+            'user_id': user.uid,
+            'email': user.email
+        }
+        return success_response(user_data, 200)
+    except Exception as e:
+        return error_response(f"Error creating user: {str(e)}", 400)
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
