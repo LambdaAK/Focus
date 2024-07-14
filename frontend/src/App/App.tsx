@@ -69,7 +69,6 @@ const Nav: React.FC = () => {
     <BottomNavigationAction label="Dashboard" icon={<RestoreIcon />} />
     <BottomNavigationAction label="Profile Settings" icon={<FavoriteIcon />} />
     <BottomNavigationAction label="AI Assistant" icon={<LocationOnIcon />} />
-    <BottomNavigationAction label="Login" icon={<LocationOnIcon />} />
     <BottomNavigationAction label="Sign up" icon={<LocationOnIcon />} />
     
       {
@@ -84,8 +83,6 @@ const Nav: React.FC = () => {
         })()
       }
     
-    
-      
     </BottomNavigation>
   )
 }
