@@ -23,6 +23,8 @@ import { Auth, getAuth, onAuthStateChanged, signOut, User } from "firebase/auth"
 import { Database, getDatabase, set } from "firebase/database";
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const app: FirebaseApp = initializeApp(firebaseConfig);
@@ -156,6 +158,18 @@ const AIAssistant: React.FC = () => {
 function App() {
   return (
     <div className = "app">
+            <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       <ThemeProvider theme={theme}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Router>

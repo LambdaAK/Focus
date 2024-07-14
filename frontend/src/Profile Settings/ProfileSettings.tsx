@@ -1,8 +1,10 @@
-import { Typography } from "@mui/material"
+import { Button, Typography } from "@mui/material"
 import "./ProfileSettings.css"
 import { TimePicker } from "@mui/x-date-pickers"
 import dayjs, { Dayjs } from "dayjs"
 import { useState } from "react"
+import { setWorkingHours } from "../api"
+import {toast} from "react-toastify"
 
 const DayOfTheWeekLabel = (props: {day: string}) => {
   return (
@@ -57,6 +59,53 @@ const WorkingHoursDay = (props: {day: string, disabled: boolean, setDisabled: Fu
   )
 }
 
+const handleChangeWorkingHours = (
+  mondayDisabled: boolean, startMonday: Dayjs, endMonday: Dayjs,
+  tuesdayDisabled: boolean, startTuesday: Dayjs, endTuesday: Dayjs,
+  wednesdayDisabled: boolean, startWednesday: Dayjs, endWednesday: Dayjs,
+  thursdayDisabled: boolean, startThursday: Dayjs, endThursday: Dayjs,
+  fridayDisabled: boolean, startFriday: Dayjs, endFriday: Dayjs,
+  saturdayDisabled: boolean, startSaturday: Dayjs, endSaturday: Dayjs,
+  sundayDisabled: boolean, startSunday: Dayjs, endSunday: Dayjs
+) => {
+  
+  const workingHours: any = {}
+
+  if (!mondayDisabled) {
+    workingHours["monday"] = {start: startMonday.format("HH:mm"), end: endMonday.format("HH:mm")}
+  }
+
+  if (!tuesdayDisabled) {
+    workingHours["tuesday"] = {start: startTuesday.format("HH:mm"), end: endTuesday.format("HH:mm")}
+  }
+
+  if (!wednesdayDisabled) {
+    workingHours["wednesday"] = {start: startWednesday.format("HH:mm"), end: endWednesday.format("HH:mm")}
+  }
+
+  if (!thursdayDisabled) {
+    workingHours["thursday"] = {start: startThursday.format("HH:mm"), end: endThursday.format("HH:mm")}
+  }
+
+  if (!fridayDisabled) {
+    workingHours["friday"] = {start: startFriday.format("HH:mm"), end: endFriday.format("HH:mm")}
+  }
+
+  if (!saturdayDisabled) {
+    workingHours["saturday"] = {start: startSaturday.format("HH:mm"), end: endSaturday.format("HH:mm")}
+  }
+
+  if (!sundayDisabled) {
+    workingHours["sunday"] = {start: startSunday.format("HH:mm"), end: endSunday.format("HH:mm")}
+  }
+
+  setWorkingHours(workingHours)
+  .then(() => {
+    toast.success("Working hours updated")
+  })
+
+}
+
 const WorkingHours = () => {
 
   const [mondayDisabled, setMondayDisabled] = useState<boolean>(false)
@@ -104,7 +153,7 @@ const WorkingHours = () => {
           disabled = {mondayDisabled}
           setDisabled = {setMondayDisabled}
           start = {startMonday}
-          setStart = {setMondayDisabled}
+          setStart = {setStartMonday}
           end = {endMonday}
           setEnd = {setEndMonday}/>
 
@@ -162,13 +211,33 @@ const WorkingHours = () => {
           end = {endSunday}
           setEnd = {setEndSunday}/>
       </div>
-
-
+      <Button
+        variant = "contained"
+        color = "primary"
+        sx = {{
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginTop: "10px",
+          width: "fit-content"
+        }}
+        onClick = {
+          () => {
+            handleChangeWorkingHours(
+              mondayDisabled, startMonday, endMonday,
+              tuesdayDisabled, startTuesday, endTuesday,
+              wednesdayDisabled, startWednesday, endWednesday,
+              thursdayDisabled, startThursday, endThursday,
+              fridayDisabled, startFriday, endFriday,
+              saturdayDisabled, startSaturday, endSaturday,
+              sundayDisabled, startSunday, endSunday)
+          }
+        }
+      >Save
+      </Button>
 
     </div>
   )
 }
-
 
 const DurationPreferences = () => {
 

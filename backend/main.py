@@ -71,5 +71,41 @@ def create_user():
         return error_response(f"Error creating user: {str(e)}", 400)
     
 
+@app.route("/users/profile/working_hours", methods=["POST"])
+def set_working_hours():
+    print("setting working hours")
+
+    # get the idtoken of the user and authenticate it
+
+    data = request.get_json()
+
+    id_token = request.headers.get("Authorization")
+
+    if not id_token:
+        return error_response("id_token is required", 400)
+
+    uid = ""
+    try:
+        decoded_token = auth.verify_id_token(id_token)
+        uid = decoded_token['uid']
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+    
+    print("Point 2")
+    
+
+    # get the json from the request
+
+    data = request.get_json()
+
+    
+    ref = db.reference(f'users/{uid}/profile/working_hours')
+
+    ref.set(data)
+
+    return jsonify({"message": "Working hours updated successfully"}), 200
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
