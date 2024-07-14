@@ -122,7 +122,13 @@ def create_schedule(tasks):
     # try parsing res as JSON
 
     try:
-      return json.loads(res)
+      o = json.loads(res)
+      # ensure that each task is a key in the response
+      for task in tasks:
+        if str(task['id']) not in o:
+          raise Exception("Missing task")
+        
+      return o
     except:
       print("FAILURE")
       print(res)
@@ -131,5 +137,3 @@ def create_schedule(tasks):
 
 for _ in range(10):
   print(create_schedule([task1, task2, task3, task4]))
-    
-
