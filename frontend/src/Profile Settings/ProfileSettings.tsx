@@ -23,9 +23,16 @@ const DayOfTheWeekLabel = (props: {day: string}) => {
 
 const WorkingHoursDay = (props: {day: string, disabled: boolean, setDisabled: Function, start: Dayjs, setStart: Function, end: Dayjs, setEnd: Function}) => {
   const {disabled, setDisabled, start, setStart, end, setEnd} = props
+
+  let labelClasses: string = "day-of-the-week-label"
+
+  if (!disabled) {
+    labelClasses += " day-of-the-week-label-enabled"
+  }
+
   return (
     <div className = "working-hours-for-day">
-    <div className = "day-of-the-week-label"
+    <div className = {labelClasses}
     onClick = {
       () => {
         // if it's currently not disabled, set start and end to null
@@ -149,6 +156,22 @@ const WorkingHours = () => {
         width: "fit-content"
       }}
       >Working Hours</Typography>
+
+      <Typography variant = "h6"
+      sx = {{
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "fit-content",
+        color: "gray",
+        fontSize: "14px",
+        marginBottom: "10px"
+      }}
+      >
+        Click on the day of the week to enable/disable working on that day.
+
+    
+      </Typography>
+
 
       <div className = "times">
         <WorkingHoursDay

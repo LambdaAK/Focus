@@ -4,6 +4,9 @@
   @include shadow;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
 
   width: min(50%, 500px);
 }
@@ -17,19 +20,25 @@
 }
 
 .day-of-the-week-label {
-  @include shadow;
+  @include light-shadow;
   font-size: 1.5em;
   font-weight: bold;
   width: 30px;
   height: 100%;
   transition: ease 0.3s;
   margin: auto;
-
+  text-align: center;
+  text-justify: center;
 
   &:hover {
     cursor: pointer;
     transform: translateX(-5px);
   }
+}
+
+.day-of-the-week-label-enabled {
+  background-color: $muted-blue;
+  color: white;
 }
 
 .working-hours-for-day {
