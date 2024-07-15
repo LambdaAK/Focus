@@ -6,13 +6,16 @@ import { useState } from "react"
 import { setWorkingHours } from "../api"
 import {toast} from "react-toastify"
 
+
+
 const DayOfTheWeekLabel = (props: {day: string}) => {
   return (
     <Typography variant = "h6"
     sx = {{
       marginLeft: "auto",
       marginRight: "10px",
-      width: "fit-content"
+      width: "20px",
+      height: "fit-content"
     }}
     >{props.day}</Typography>
   )

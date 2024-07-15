@@ -20,8 +20,11 @@
   @include shadow;
   font-size: 1.5em;
   font-weight: bold;
-
+  width: 30px;
+  height: 100%;
   transition: ease 0.3s;
+  margin: auto;
+
 
   &:hover {
     cursor: pointer;
@@ -32,6 +35,7 @@
 .working-hours-for-day {
   display: flex;
   flex-direction: row;
+  gap: 10px;
 }
 
 .duration-preferences {
